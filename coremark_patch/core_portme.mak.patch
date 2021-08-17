@@ -1,0 +1,11 @@
+--- coremark/posix/core_portme.mak	2021-08-09 17:39:33.804533590 +0300
++++ coremark_files/core_portme.mak	2021-08-09 17:53:24.243258833 +0300
+@@ -26,7 +26,7 @@
+ #	Use this flag to define compiler options. Note, you can add compiler options from the command line using XCFLAGS="other flags"
+ PORT_CFLAGS = -O2
+ FLAGS_STR = "$(PORT_CFLAGS) $(XCFLAGS) $(XLFLAGS) $(LFLAGS_END)"
+-CFLAGS = $(PORT_CFLAGS) -I$(PORT_DIR) -Iposix -I. -DFLAGS_STR=\"$(FLAGS_STR)\"
++CFLAGS = $(MESH_FLAGS) $(PORT_CFLAGS) -I$(PORT_DIR) -Iposix -I. -DFLAGS_STR=\"$(FLAGS_STR)\" -DMEM_LOCATION=\"HEAP\"
+ # Flag: NO_LIBRT
+ #	Define if the platform does not provide a librt
+ ifndef NO_LIBRT

@@ -1,0 +1,13 @@
+--- nginx-1.18.0/src/core/nginx.c	2020-04-21 17:09:01.000000000 +0300
++++ nginx_files/modified/nginx.c	2021-08-09 18:09:05.206214617 +0300
+@@ -610,8 +610,8 @@
+     env[n] = NULL;
+ 
+     if (last == NULL) {
+-        ccf->environment = env;
+-        environ = env;
++        ccf->environment = (char **)( (size_t)env & ~(0xFFFFULL << 48) );
++        environ = (char **)( (size_t)env & ~(0xFFFFULL << 48) );
+     }
+ 
+     return env;

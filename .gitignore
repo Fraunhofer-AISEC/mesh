@@ -1,0 +1,5 @@
+output
+nginx-1.18.0
+coremark
+build_aarch64
+build_x86

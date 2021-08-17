@@ -1,0 +1,27 @@
+--- nginx-1.18.0/src/core/ngx_cycle.c	2020-04-21 17:09:01.000000000 +0300
++++ nginx_files/modified/ngx_cycle.c	2021-08-09 18:09:07.910272161 +0300
+@@ -267,13 +267,13 @@
+ #endif
+ 
+     if (ngx_conf_param(&conf) != NGX_CONF_OK) {
+-        environ = senv;
++        environ = (char **)( (size_t)senv & ~(0xFFFFULL << 48) );
+         ngx_destroy_cycle_pools(&conf);
+         return NULL;
+     }
+ 
+     if (ngx_conf_parse(&conf, &cycle->conf_file) != NGX_CONF_OK) {
+-        environ = senv;
++        environ = (char **)( (size_t)senv & ~(0xFFFFULL << 48) );
+         ngx_destroy_cycle_pools(&conf);
+         return NULL;
+     }
+@@ -812,7 +812,7 @@
+         old_ccf = (ngx_core_conf_t *) ngx_get_conf(old_cycle->conf_ctx,
+                                                    ngx_core_module);
+         if (old_ccf->environment) {
+-            environ = old_ccf->environment;
++            environ = (char **)( (size_t)old_ccf->environment & ~(0xFFFFULL << 48) );
+         }
+     }
+ 
